@@ -1,0 +1,16 @@
+video1:
+  title: Lecture I - FISST module
+  location: https://www.youtube.com/embed/1GSKhM57lo0 
+video2:
+  title: Lecture II - Modelling mechanobiological processes
+  location: https://www.youtube.com/embed/JjpKSzb9kJM
+ref1:
+  location: 21/001
+  type: internal
+paper1:
+  location: https://doi.org/10.1021/acs.jpcb.1c06330
+
+  type: external
+paper2:
+  location: https://doi.org/10.1021/acs.jpcb.1c10715
+  type: external
