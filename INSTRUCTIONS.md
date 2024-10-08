@@ -120,3 +120,16 @@ plumed pesmd < doublewell_prod.pesmd.input
 Plot the free energy surface from the GRID or after using sum_hills to compute the surface, and zero the potential at the left minimum. What do you notice about the other minimum and barrier?
 
 ![Pulling on a double well, sampled by metadynamics](figs/masterclass-22-15-doublewell_metad.jpg)
+
+### Ligand dissociation from a membrane protein system 
+
+In the following, we illustrate how Plumed can be used to probe ligand-protein interactions in a constant force set-up mimicking single-molecule force spectroscopy experiments that can produce such forces from the pN to the nN regime. On purpuse, we apply it here to a large system comprising the ghrelin receptor GHSR embedded in a model infinite lipid bilayer and solvated by water molecules. All input files necessary to run these simulations are available here XX. Given the system size, and required simulation lengths, it is highly recommended that you perform these simulations on a cluster, preferably on GPUs. Note that these simulations can well be run on a laptop or desktop computer, but you will be limited to quite short simulation times which would require the use of much larger forces to see dissociation within a short time window. 
+
+We start by giving a little bit of context on the system chosen for this example, which is shown in the figure below: 
+
+ [Figure prot and definition of CVs]
+
+ 
+
+
+
