@@ -129,7 +129,32 @@ We start by giving a little bit of context on the system chosen for this example
 
  [Figure prot and definition of CVs]
 
- 
+ Panel a gives an overview of the system {GHSR+ligand+membrane+water} which is periodic in all directions. In panel b and c, we show the geometric definition of two collective variables, $d_S$ and $d_O$, corresponding respectively to the distance between an anchor in the protein (center of mass between three residues), and either the N-terminal alpha carbon ($d_S$) or the center of mass of the ligand ($d_O$). In plumed, this is achieved as follows: 
+
+```plumed
+GHRP6_COM: COM ATOMS=4822-4942
+GHSR_COM: COM ATOMS=769,1490,3760
+dO: DISTANCE ATOMS=GHRP6_COM,GHSR_COM COMPONENTS NOPBC
+dS: DISTANCE ATOMS=4826,GHSR_COM COMPONENTS NOPBC
+```
+Please note the NOPBC option that is important here as we don't want to calculate the minimal distance between these two ligand/protein sites. 
+
+Say now that we want to apply a vertical force of a given amplitude to one of these CVs. As detailed in the preambule, this can be achieved by playing with the SLOPE keyword of the RESTRAINT bias. The fact that we apply a vertical force is controlled by the fact that bias is acting on the z component of the CV: 
+
+For example, 
+```plumed
+restraint: RESTRAINT ARG=dS.z AT=0 SLOPE=-270
+```
+
+Since the energy and distance units are respectively XX and XX, can you guess to which force this corresponds? Why is the SLOPE defined with a negative sign?
+
+The amplitude of the force can be tuned by changing the SLOPE, and this can be applied to any CV you like. Steered and constant force MD are by essence out-of-equilibrium set-ups, therefore, if the force is high enough, you don't expect the unbinding event to be reversible. This means that to calculate converged quantities (e.g. unbinding times), you need to repeat such simulations multiple times. 
+
+For example, the following figures shows the results (CV vs time) of 5 trajectories at two different forces. How does the unbinding time depends on force? Is this expected?
+
+[Figure XX]
+
+
 
 
 
