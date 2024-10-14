@@ -235,7 +235,7 @@ RESTRAINT __FILL__
 PRINT ARG=* FILE=__FILL__ STRIDE=100
 ```
 
-Then run the simulation using the command:
+Then download the [pesmd input file](inputs/doublewell_prod.pesmd.input) run the simulation using the command:
 
 ````
 plumed pesmd < doublewell_prod.pesmd.input
@@ -244,3 +244,36 @@ plumed pesmd < doublewell_prod.pesmd.input
 Plot the free energy surface from the GRID or after using sum_hills to compute the surface, and zero the potential at the left minimum. What do you notice about the other minimum and barrier?
 
 ![Pulling on a double well, sampled by metadynamics](images/doublewell_force_metad.jpg)
+
+### Getting transition times versus force for a double well
+
+Perform MetaD using the options below to predict kinetics at different forces. In the figure, I show results from computing the unbinding time using 40 runs with independent seeds for each _pulling_ force from 0 to 1 (be careful with the sign). As you can see, the time goes down exponentially, following Bell's law. Can you extract the transition distance from this figure? 
+
+Note that here I used reduced units. An example pesmd input file is given at [this link](inputs/doublewell_rates.pesmd.input)
+
+```plumed
+#SOLUTIONFILE=work/pulling_rate_example.plumed.dat
+UNITS NATURAL
+
+d1: DISTANCE ATOMS=1,2
+ff: MATHEVAL ARG=d1 PERIODIC=NO FUNC=0.02*(((x-10)^2)*((x-20)^2))
+bb: BIASVALUE ARG=ff
+
+metad: METAD ARG=d1 PACE=200 HEIGHT=0.1 SIGMA=2.5 FILE=run_metad_F-1.0.hills BIASFACTOR=10 TEMP=1.0 __FILL__
+
+COMMITTOR ...
+    ARG=d1
+    STRIDE=10
+    BASIN_LL1=__FILL__
+    BASIN_UL1=10000
+    LABEL=c
+...
+
+F: RESTRAINT ARG=d1 AT=0.0 KAPPA=0 SLOPE=__FILL__
+
+PRINT ARG=* FILE=run_metad_F-1.0.metad.dat STRIDE=10
+```
+
+Your results should look like the following:
+
+![Taus from double well, from infrequent metadynamics](images/potential_and_taus.png)
