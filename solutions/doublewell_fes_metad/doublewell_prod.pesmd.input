@@ -1,0 +1,9 @@
+temperature 300
+tstep 0.01
+friction 1.0
+dimension 1
+nstep 2000000
+ipos 15.0
+idum 10
+periodic false
+plumed doublewell_prod.plumed.dat
