@@ -31,6 +31,8 @@ You can clone this repository locally on your machine if you want, but specific 
 
 ## Background
 
+### Force basics
+
 A force along some direction here is defined as the negative gradient of the potential energy along that direction. 
 
 A constant force $F$ on a scalar collective variable $Q(\vec{X})$ therefore is a simple addition to the system's energy function.
@@ -57,7 +59,7 @@ $$
 
 Constant forces can be applied in PLUMED with the SLOPE keyword of the RESTRAINT bias.
 
-## Steered MD
+### Steered MD
 
 Steered molecular dynamics (SMD) is one way of pulling on a molecular coordinate, and has a connection to experiments done where a molecule is attached via a "spring" to an object such as an optical tweezer or AFM tip. To represent this in simulation, instead of applying a constant force, we impose a Harmonic restraint on $Q$ with a center that moves:
 
@@ -86,6 +88,37 @@ where,
 $$
  \bar{F_i}=\frac{1}{2}( F_{i}+F_{i-1} ) = -\frac{k}{2}( Q(t_i)-Q_0(t_i) -Q(t_{i-1})+Q_0(t_{i-1})) = -\frac{k}{2} (\Delta Q_i - \lambda d t)
 $$
+
+### Dynamics from Infrequent Metadynamics
+
+To compute the rate constant of unbinding in a standard molecular dynamics simulation, one would run many simulations starting from the bound pose, and then compute the mean time of escape, by averaging the times at which unbinding is deemed to have occured $\tau=\frac{1}{N} \sum_{i=1}^N t^{unbind}_i$ (this assumes every simulation ends in an unbinding event). 
+
+In this case, the unbinding rate constant $k_{off}=1/\tau$ 
+
+
+One way to compute dynamics from biased simulations is [Infrequent Metadyanmics](https://doi.org/10.1103/PhysRevLett.111.230602)
+
+In this approach, we apply bias with a slow PACE so that the transition over the barrier to escape is not likely to be biased. In this case with some other assumptions, $\tau = \frac{1}{N} \sum_{i=1}^{N} \alpha_i \tau_i$, where 
+
+$$
+\alpha_i = 1/t_i \int_0^{t'_i} e^{\beta V_i(t')} dt'
+$$
+
+Where $V_i(t)$ is the Metadynamics bias at time $t$.
+
+$\alpha_i$ is called the _acceleration factor_ and can be computed by PLUMED for METAD automatically.
+
+Note - there are other approaches to take the same data and compute $\tau$ by fitting the survival distribution, but we will not discuss that here. 
+
+### Dependence of unbinding rate constants with force
+
+For a double well potential, the rate of crossing a high barrier with a small pulling force follows what is sometimes called Bell's law, and is a simple consequence of the linear response of the barrier to pulling:
+
+$$
+k_{off}(F)=k_{off}(F=0) e^{\beta F \Delta Q^\ddag}
+$$
+
+This means that the unbinding accelerates exponentially with force relative to zero force, and this speedup depends on $\Delta Q^\ddag$ which is the "distance to the transition state", assumed to be constant (in reality, this distance moves even for a double well potential, and it is easy to correct for this motion for a quadratic barrier. Feel free to tackle this as an exercise!).
 
 ## Exercises
 
