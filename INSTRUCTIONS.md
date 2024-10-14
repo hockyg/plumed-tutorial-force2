@@ -251,6 +251,8 @@ Perform MetaD using the options below to predict kinetics at different forces. I
 
 Note that here I used reduced units. An example pesmd input file is given at [this link](inputs/doublewell_rates.pesmd.input)
 
+Fill in the blanks below to turn on calculation of the acceleration factor, and use the COMMITTOR function to stop simulations when the system crosses the barrier (e.g. at x=15.5)
+
 ```plumed
 #SOLUTIONFILE=work/pulling_rate_example.plumed.dat
 UNITS NATURAL
