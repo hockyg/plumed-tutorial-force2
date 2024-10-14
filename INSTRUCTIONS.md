@@ -189,7 +189,7 @@ Note, the first step is a recap from the earlier [FISST module masterclass/tutor
 Use the RESTRAINT function to add a constant force of different magnitudes (e.g. -2.5 to 2.5 in these units) and look at how the force changes the resulting free energy surface.
 
 ```plumed
-#SOLUTIONFILE=work/pulling_example.plumed.dat
+#SOLUTIONFILE=work/pulling_example_doublewell.plumed.dat
 UNITS ENERGY=kcal/mol
 
 d1: DISTANCE ATOMS=1,2
