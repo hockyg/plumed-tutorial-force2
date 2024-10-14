@@ -26,11 +26,8 @@ We will use GROMACS, PLUMED, and PLUMED's pesmd function to perform the calculat
 Conda packages with the software required for this class have been prepared and you can install them following the instructions in [this link](https://github.com/plumed/masterclass-2022).
 
 The data needed to run the exercises of this Masterclass can be found on [GitHub](https://github.com/hockyg/plumed-tutorial-force2).
-You can clone this repository locally on your machine using the following command:
 
-````
-git clone https://github.com/hockyg/plumed-tutorial-force2
-````
+You can clone this repository locally on your machine if you want, but specific data will be linked to below.
 
 ## Background
 
@@ -99,11 +96,17 @@ The exercises are presented below.
 
 #### System and context 
 
-In the following, we illustrate how Plumed can be used to probe ligand-protein interactions in a constant force set-up mimicking single-molecule force spectroscopy experiments that can produce such forces from the pN to the nN regime. On purpuse, we apply it here to a large system comprising the ghrelin receptor GHSR bound to a model peptide GHRP-6 embedded in a model infinite lipid bilayer and solvated by water molecules. All input files necessary to run these simulations are available here XX. Given the system size, and required simulation lengths, it is highly recommended that you perform these simulations on a cluster, preferably on GPUs. Note that these simulations can be run on a laptop or desktop computer, but you will be limited to quite short simulation times which would require the use of much larger forces to see dissociation within a short time window. 
+In the following, we illustrate how Plumed can be used to probe ligand-protein interactions in a constant force set-up mimicking single-molecule force spectroscopy experiments that can produce such forces from the pN to the nN regime. 
+
+On purpuse, we apply it here to a large system comprising the ghrelin receptor GHSR bound to a model peptide GHRP-6 embedded in a model infinite lipid bilayer and solvated by water molecules. 
+
+All input files necessary to run these simulations are available [in this zip file](https://github.com/hockyg/plumed-tutorial-force2/raw/refs/heads/main/plumed-tutorial-force2-data-part1.zip).
+
+Given the system size, and required simulation lengths, it is highly recommended that you perform these simulations on a cluster, preferably on GPUs. Note that these simulations can be run on a laptop or desktop computer, but you will be limited to quite short simulation times which would require the use of much larger forces to see dissociation within a short time window. 
 
 We start by giving a little bit of context on the system chosen for this example, which is shown in the figure below: 
 
-![tutorial_figure](https://github.com/user-attachments/assets/4f587ac5-34a1-4abc-9afc-3669a01c96ad)
+![tutorial_figure](https://github.com/hockyg/plumed-tutorial-force2/raw/refs/heads/main/images/GHRP-setup.png).
 
  Panel a gives an overview of the system {GHSR+ligand+membrane+water} which is periodic in all directions. In panel b and c, we show the geometric definition of two collective variables, $d_S$ and $d_O$, corresponding respectively to the distance between an anchor in the protein (center of mass between three residues), and either the N-terminal alpha carbon ($d_S$) or the center of mass of the ligand ($d_O$). In plumed, this is achieved as follows: 
 
@@ -121,36 +124,55 @@ Say now that we want to apply a vertical force of a given amplitude to one of th
 
 For example, 
 ```plumed
+#SOLUTIONFILE=work/pulling_units.plumed.dat
+UNITS __FILL__
+
+GHRP6_COM: COM ATOMS=4822-4942
+GHSR_COM: COM ATOMS=769,1490,3760
+dO: DISTANCE ATOMS=GHRP6_COM,GHSR_COM COMPONENTS NOPBC
+dS: DISTANCE ATOMS=4826,GHSR_COM COMPONENTS NOPBC
+
 restraint: RESTRAINT ARG=dS.z AT=0 SLOPE=-270
+
+PRINT __FILL__ STRIDE=100 FILE=pull_270.colvar.dat
 ```
 
-Since the energy and distance units are respectively XX and XX, can you guess to which force this corresponds? Why is the SLOPE defined with a negative sign?
+Set the energy and distance units to kJ/mol and nm respectively. In these units, what does a SLOPE of -270 correspond to in Piconewtons? (And remember from above,  why is the SLOPE defined with a negative sign?)
+
+Make sure to print out the distances you are interested in, as well as the work done by the bias.
 
 The amplitude of the force can be tuned by changing the SLOPE, and this can be applied to any CV you like. Steered and constant force MD are by essence out-of-equilibrium set-ups, therefore, if the force is high enough, you don't expect the unbinding event to be reversible. This means that to calculate converged quantities (e.g. unbinding times), you need to repeat such simulations multiple times. 
 
 For example, the following figures shows the results (CV vs time) of 5 trajectories at two different forces acting on $d_S$. How does the unbinding time depends on force? Is this expected?
 
-![different_forces](https://github.com/user-attachments/assets/e458c453-1ae3-4192-95ca-21048878b3c4)
+![different_forces](https://github.com/hockyg/plumed-tutorial-force2/raw/refs/heads/main/images/GHRP_distance_time.png).
 
-As an exercise, you can either try to play with force further and re-run some simulations to see how this affects the unbinding time, or try to apply force to a different CV, $d_O$ for example. 
+As an exercise, set slope to match these different conditions. can either try to play with force further and re-run some simulations to see how this affects the unbinding time, or try to apply force to a different CV, $d_O$ for example. 
 
 #### Pulling at an angle
 
-Finally, it could be interesting and relevant for the comparision with experimental results to change the directionnality of the force. For example, providing you with the following plumed file, and based on what we did above, can you guess what is done exactly to the system? Is is expected to have a significant influnce on the unbinding kinetics?
+Finally, it could be interesting and relevant for the comparision with experimental results to change the directionnality of the force. 
+
+For example, providing you with the following plumed file, and based on what we did above, can you guess what is done exactly to the system? Is is expected to have a significant influnce on the unbinding kinetics?
 
 For example, 
 ```plumed
+#SOLUTIONFILE=work/pull_angle.plumed.dat
+UNITS __FILL__
+
 GHSR_COM: COM ATOMS=769,1490,3760
 dS: DISTANCE ATOMS=4826,GHSR_COM COMPONENTS NOPBC
-restraint_x: RESTRAINT ARG=dS.x AT=0 SLOPE=-173
-restraint_z: RESTRAINT ARG=dS.z AT=0 SLOPE=-207
-PRINT FMT=%g ARG=dS.*,restraint_x.*,restraint_z.* STRIDE=500 FILE=colvars.data
+restraint_x: RESTRAINT ARG=dS.x AT=0 SLOPE=__FILL__
+restraint_z: RESTRAINT ARG=dS.z AT=0 SLOPE=__FILL__
 
+PRINT FMT=%g ARG=dS.*,restraint_x.*,restraint_z.* STRIDE=500 FILE=pull_40degrees.dat
 ```
+
+Fill in this PLUMED file so that constant force pulling is performed with a total magnitude of 450 pN at an angle of 40 degrees from the vertical.
 
 In the following figure, we show the results of the application of a force of 450 pN to the N-terminal residue of the ligand peptide, pulling at different angles. The first angle is that corresponds to the tilt along x, and the second one, if shown, to that along y. 
 
-![different_angles](https://github.com/user-attachments/assets/e19dce85-7a76-407a-9af7-cf17e2cfbf0b)
+![different_angles](https://github.com/hockyg/plumed-tutorial-force2/raw/refs/heads/main/images/GHRP_pulling_angles.png).
 
 #### Conclusion
 
@@ -162,7 +184,7 @@ You should now be able to apply constant forces to any CV in a given system, and
 Use the RESTRAINT function to add a constant force of different magnitudes (e.g. -2.5 to 2.5 in these units) and look at how the force changes the resulting free energy surface.
 
 ```plumed
-#SOLUTIONFILE=work/plumed_ex1.dat
+#SOLUTIONFILE=work/pulling_2d.plumed.dat
 UNITS ENERGY=kcal/mol
 
 d1: DISTANCE ATOMS=1,2
