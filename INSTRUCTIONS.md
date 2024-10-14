@@ -98,10 +98,10 @@ In this case, the unbinding rate constant $k_{off}=1/\tau$
 
 One way to compute dynamics from biased simulations is [Infrequent Metadyanmics](https://doi.org/10.1103/PhysRevLett.111.230602)
 
-In this approach, we apply bias with a slow PACE so that the transition over the barrier to escape is not likely to be biased. In this case with some other assumptions, $\tau = \frac{1}{N} \sum_{i=1}^{N} \alpha_i \tau_i$, where 
+In this approach, we apply bias with a slow PACE so that the transition over the barrier to escape is not likely to be biased. In this case with some other assumptions, $\tau = \frac{1}{N} \sum_{i=1}^{N} \alpha_i \t_i$, where 
 
 $$
-\alpha_i = 1/t_i \int_0^{t'_i} e^{\beta V_i(t')} dt'
+\alpha_i = \frac{1}{t_i} \int_0^{t_i} e^{\beta V_i(t)} dt
 $$
 
 Where $V_i(t)$ is the Metadynamics bias at time $t$.
@@ -115,10 +115,10 @@ Note - there are other approaches to take the same data and compute $\tau$ by fi
 For a double well potential, the rate of crossing a high barrier with a small pulling force follows what is sometimes called Bell's law, and is a simple consequence of the linear response of the barrier to pulling:
 
 $$
-k_{off}(F)=k_{off}(F=0) e^{\beta F \Delta Q^\ddag}
+k_{off}(F)=k_{off}(F=0) e^{\beta F \Delta Q^*}
 $$
 
-This means that the unbinding accelerates exponentially with force relative to zero force, and this speedup depends on $\Delta Q^\ddag$ which is the "distance to the transition state", assumed to be constant (in reality, this distance moves even for a double well potential, and it is easy to correct for this motion for a quadratic barrier. Feel free to tackle this as an exercise!).
+This means that the unbinding accelerates exponentially with force relative to zero force, and this speedup depends on $\Delta Q^*$ which is the "distance to the transition state", assumed to be constant (in reality, this distance moves even for a double well potential, and it is easy to correct for this motion for a quadratic barrier. Feel free to tackle this as an exercise!).
 
 ## Exercises
 
