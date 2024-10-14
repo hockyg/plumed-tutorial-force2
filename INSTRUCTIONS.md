@@ -179,16 +179,22 @@ In the following figure, we show the results of the application of a force of 45
 You should now be able to apply constant forces to any CV in a given system, and to tune the direction of this force. 
 
 ### Part 2 - Effect of force on unbinding rates
+
+In this section, we will demonstrate how unbinding rate constants can be computed via Infrequent Metadynamics. This will be demonstrated on a double-well potential, and simulations will be performed using plumed's `pesmd` function.
+
+Note, the first step is a recap from the earlier [FISST module masterclass/tutorial](https://www.plumed-tutorials.org/lessons/22/015/data/INSTRUCTIONS.html)
+
 #### Reminder - Effect of force on a 2-dimensional potential
 
 Use the RESTRAINT function to add a constant force of different magnitudes (e.g. -2.5 to 2.5 in these units) and look at how the force changes the resulting free energy surface.
 
 ```plumed
-#SOLUTIONFILE=work/pulling_2d.plumed.dat
+#SOLUTIONFILE=work/pulling_example.plumed.dat
 UNITS ENERGY=kcal/mol
 
 d1: DISTANCE ATOMS=1,2
 ff: MATHEVAL ARG=d1 PERIODIC=NO FUNC=0.2*(((x-10)^2)*((x-20)^2))
+
 metad: METAD ARG=d1 PACE=500 HEIGHT=0.1 SIGMA=2.5 FILE=__FILL__ BIASFACTOR=10 TEMP=300.0 GRID_WFILE=__FILL__ GRID_MIN=0 GRID_MAX=30 GRID_BIN=251 GRID_WSTRIDE=10000
 
 RESTRAINT __FILL__
@@ -204,4 +210,4 @@ plumed pesmd < doublewell_prod.pesmd.input
 
 Plot the free energy surface from the GRID or after using sum_hills to compute the surface, and zero the potential at the left minimum. What do you notice about the other minimum and barrier?
 
-![Pulling on a double well, sampled by metadynamics](figs/masterclass-22-15-doublewell_metad.jpg)
+![Pulling on a double well, sampled by metadynamics](images/doublewell_force_metad.jpg)
