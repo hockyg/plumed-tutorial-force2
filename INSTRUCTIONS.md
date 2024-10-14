@@ -106,7 +106,7 @@ Given the system size, and required simulation lengths, it is highly recommended
 
 We start by giving a little bit of context on the system chosen for this example, which is shown in the figure below: 
 
-![tutorial_figure](https://github.com/hockyg/plumed-tutorial-force2/raw/refs/heads/main/images/GHRP-setup.png).
+![tutorial_figure](images/GHRP-setup.png).
 
  Panel a gives an overview of the system {GHSR+ligand+membrane+water} which is periodic in all directions. In panel b and c, we show the geometric definition of two collective variables, $d_S$ and $d_O$, corresponding respectively to the distance between an anchor in the protein (center of mass between three residues), and either the N-terminal alpha carbon ($d_S$) or the center of mass of the ligand ($d_O$). In plumed, this is achieved as follows: 
 
@@ -145,7 +145,7 @@ The amplitude of the force can be tuned by changing the SLOPE, and this can be a
 
 For example, the following figures shows the results (CV vs time) of 5 trajectories at two different forces acting on $d_S$. How does the unbinding time depends on force? Is this expected?
 
-![different_forces](https://github.com/hockyg/plumed-tutorial-force2/raw/refs/heads/main/images/GHRP_distance_time.png).
+![different_forces](images/GHRP_distance_time.png).
 
 As an exercise, set slope to match these different conditions. can either try to play with force further and re-run some simulations to see how this affects the unbinding time, or try to apply force to a different CV, $d_O$ for example. 
 
@@ -172,7 +172,7 @@ Fill in this PLUMED file so that constant force pulling is performed with a tota
 
 In the following figure, we show the results of the application of a force of 450 pN to the N-terminal residue of the ligand peptide, pulling at different angles. The first angle is that corresponds to the tilt along x, and the second one, if shown, to that along y. 
 
-![different_angles](https://github.com/hockyg/plumed-tutorial-force2/raw/refs/heads/main/images/GHRP_pulling_angles.png).
+![different_angles](images/GHRP_pulling_angles.png).
 
 #### Conclusion
 
