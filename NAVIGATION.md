@@ -14,10 +14,13 @@ Solutions are available from [This page](https://github.com/hockyg/plumed-tutori
 ```mermaid
 flowchart TB;
   A[FISST tutorial] -.-> B[instructions];
-  B -.-> C[Further reading];
-  B -.-> D[Further reading];
+  B -.-> C[Hocky mechanobiology review];
+  B -.-> D[Stirnemann mechanobiology review];
+  B -.-> E[Computing force dependent rates];
   click A "ref1" "A previous tutorial that introduces the concepts of mechanical pulling in PLUMED and the FISST module";
   click B "INSTRUCTIONS.md" "Instructions for the exercises that you are supposed to complete";
   click C "paper1" "One paper describing how to treat forces in molecular dynamics simulations of biological macromolecules";
   click D "paper2" "A second paper describing how to treat forces in molecular dynamics simulations of biological macromolecules";
+  click E "paper3" "A paper showing that force-dependent rates can be computed using infrequent metadynamics";
+
 ```
