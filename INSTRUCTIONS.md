@@ -178,7 +178,7 @@ For example, the following figures shows the results (CV vs time) of 5 trajector
 
 ![different_forces](images/GHRP_distance_time.png).
 
-As an exercise, set slope to match these different conditions. can either try to play with force further and re-run some simulations to see how this affects the unbinding time, or try to apply force to a different CV, $d_O$ for example. 
+As an exercise, set SLOPE to match these different conditions. You can either try to play with force further and re-run some simulations to see how this affects the unbinding time, or try to apply force to a different CV, $d_O$ for example. 
 
 #### Pulling at an angle
 
