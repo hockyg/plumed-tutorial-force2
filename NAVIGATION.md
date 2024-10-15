@@ -18,6 +18,6 @@ flowchart TB;
   B -.-> D[Further reading];
   click A "ref1" "A previous tutorial that introduces the concepts of mechanical pulling in PLUMED and the FISST module";
   click B "INSTRUCTIONS.md" "Instructions for the exercises that you are supposed to complete";
-  click C "paper1" "A paper describing the FISST method that is used in this tutorial";
-  click D "paper2" "A follow up paper combining FISST with replica exchange";
+  click C "paper1" "One paper describing how to treat forces in molecular dynamics simulations of biological macromolecules";
+  click D "paper2" "A second paper describing how to treat forces in molecular dynamics simulations of biological macromolecules";
 ```
