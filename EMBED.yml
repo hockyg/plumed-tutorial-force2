@@ -13,3 +13,6 @@ paper1:
 paper2:
   location: https://doi.org/10.1021/acs.jpcb.1c10715
   type: external
+paper3:
+  location: https://doi.org/10.1063/5.0081078
+  type: external
