@@ -13,15 +13,11 @@ Solutions are available from [This page](https://github.com/hockyg/plumed-tutori
 
 ```mermaid
 flowchart TB;
-  A[syntax] -.-> C[Lecture I];
-  B[paper1] -.-> C;
-  C ==> D[instructions];
-  D ==> E[Lecture II];
-  E ==> F[paper2];
-  click A "ref1" "A previous tutorial that introduces the basics of PLUMED syntax";
-  click B "paper1" "A paper describing the FISST method that is used in this tutorial";
-  click C "paper2" "A follow up paper combining FISST with replica exchange";
-  click D "video1" "A lecture that was given on October 17th 2022 as part of the plumed masterclass series that introduces you to the exercises in this lesson";
-  click E "video2" "A lecture that was given on October 24th 2022 as part of the plumed masterclass series that gives background on modelling mechanobiological processes, and then goes through the solutions to the exercises in the previous lesson";
-  click F "INSTRUCTIONS.md" "Instructions for the exercises that you are supposed to complete";
+  A[FISST tutorial] -.-> B[instructions];
+  B -.-> C[Further reading];
+  B -.-> D[Further reading];
+  click A "ref1" "A previous tutorial that introduces the concepts of mechanical pulling in PLUMED and the FISST module";
+  click B "INSTRUCTIONS.md" "Instructions for the exercises that you are supposed to complete";
+  click C "paper1" "A paper describing the FISST method that is used in this tutorial";
+  click D "paper2" "A follow up paper combining FISST with replica exchange";
 ```
