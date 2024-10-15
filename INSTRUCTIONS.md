@@ -2,17 +2,17 @@
 
 ## Origin
 
-This tutorial was authored by Claire Pritchard, Guillaume Stirnemann, and Glen M. Hocky in October 2024
+This tutorial was authored by Claire Pritchard, Guillaume Stirnemann, and Glen M. Hocky in October 2024.
 
 ## Aims
 
-This Masterclass explains how mechanical forces can be modeled using PLUMED, and how to compute their result using free energy and kinetics calculations
+This Masterclass explains how mechanical forces can be modeled using PLUMED, and how to compute their result using free energy and kinetics calculations.
 
 ## Objectives
 
 The objectives of this Masterclass are:
-- Learn how to apply a constant force in PLUMED
-- See how transition rates change with different forces
+- Learn how to apply a constant force in PLUMED;
+- See how transition rates change with different forces.
 
 ## Prerequisites
 
@@ -51,7 +51,7 @@ Dimensional analysis implies that the units of $F$ must be [Energy]/[Q].
 
 The effect of constant force can be assessed using any enhanced sampling method.
 
-The work done by the bias in this case is very simple
+The work done by the bias in this case is very simple:
 
 $$
 W = \int_a^b F \cdot d Q = F ( Q_b - Q_a )
@@ -91,14 +91,12 @@ $$
 
 ### Dynamics from Infrequent Metadynamics
 
-To compute the rate constant of unbinding in a standard molecular dynamics simulation, one would run many simulations starting from the bound pose, and then compute the mean time of escape, by averaging the times at which unbinding is deemed to have occured $\tau=\frac{1}{N} \sum_{i=1}^N t^{unbind}_i$ (this assumes every simulation ends in an unbinding event). 
+To compute the rate constant of unbinding in a standard molecular dynamics simulation, one would run many simulations starting from the bound pose, and then compute the mean time of escape, by averaging the times at which unbinding is deemed to have occured, $\tau=\frac{1}{N} \sum_{i=1}^N t^{unbind}_i$ (this assumes every simulation ends in an unbinding event). 
 
-In this case, the unbinding rate constant $k_{off}=1/\tau$ 
+In this case, the unbinding rate constant is $k_{off}=1/\tau$. 
 
 
-One way to compute dynamics from biased simulations is [Infrequent Metadyanmics](https://doi.org/10.1103/PhysRevLett.111.230602)
-
-In this approach, we apply bias with a slow PACE so that the transition over the barrier to escape is not likely to be biased. In this case with some other assumptions, $\tau = \frac{1}{N} \sum_{i=1}^{N} \alpha_i \t_i$, where 
+One way to compute dynamics from biased simulations is [Infrequent Metadynamics](https://doi.org/10.1103/PhysRevLett.111.230602). In this approach, we apply bias with a slow PACE so that the transition over the barrier to escape is not likely to be biased. In this case with some other assumptions, $\tau = \frac{1}{N} \sum_{i=1}^{N} \alpha_i \t_i$, where 
 
 $$
 \alpha_i = \frac{1}{t_i} \int_0^{t_i} e^{\beta V_i(t)} dt
@@ -215,7 +213,7 @@ You should now be able to apply constant forces to any CV in a given system, and
 
 In this section, we will demonstrate how unbinding rate constants can be computed via Infrequent Metadynamics. This will be demonstrated on a double-well potential, and simulations will be performed using plumed's `pesmd` function.
 
-Note, the first step is a recap from the earlier [FISST module masterclass/tutorial](https://www.plumed-tutorials.org/lessons/22/015/data/INSTRUCTIONS.html)
+Note, the first step is a recap from the earlier [FISST module masterclass/tutorial](https://www.plumed-tutorials.org/lessons/22/015/data/INSTRUCTIONS.html). 
 
 #### Reminder - Effect of force on a 2-dimensional potential
 
@@ -247,9 +245,9 @@ Plot the free energy surface from the GRID or after using sum_hills to compute t
 
 ### Getting transition times versus force for a double well
 
-Perform MetaD using the options below to predict kinetics at different forces. In the figure, I show results from computing the unbinding time using 40 runs with independent seeds for each _pulling_ force from 0 to 1 (be careful with the sign). As you can see, the time goes down exponentially, following Bell's law. Can you extract the transition distance from this figure? 
+Perform MetaD using the options below to predict kinetics at different forces. In the figure, we show results from computing the unbinding time using 40 runs with independent seeds for each _pulling_ force from 0 to 1 (be careful with the sign). As you can see, the time goes down exponentially, following Bell's law. Can you extract the transition distance from this figure? 
 
-Note that here I used reduced units. An example pesmd input file is given at [this link](inputs/doublewell_rates.pesmd.input)
+Note that here we used reduced units. An example pesmd input file is given at [this link](inputs/doublewell_rates.pesmd.input). 
 
 Fill in the blanks below to turn on calculation of the acceleration factor, and use the COMMITTOR function to stop simulations when the system crosses the barrier (e.g. at x=15.5)
 
