@@ -129,7 +129,7 @@ The exercises are presented below.
 
 In the following, we illustrate how Plumed can be used to probe ligand-protein interactions in a constant force set-up mimicking single-molecule force spectroscopy experiments that can produce such forces from the pN to the nN regime. 
 
-On purpuse, we apply it here to a large system comprising the ghrelin receptor GHSR bound to a model peptide GHRP-6 embedded in a model infinite lipid bilayer and solvated by water molecules. 
+On purpose, we apply it here to a large system comprising the ghrelin receptor GHSR bound to a model peptide GHRP-6 embedded in a model infinite lipid bilayer and solvated by water molecules. 
 
 All input files necessary to run these simulations are available [in this zip file](https://github.com/hockyg/plumed-tutorial-force2/raw/refs/heads/main/plumed-tutorial-force2-data-part1.zip).
 
@@ -174,7 +174,7 @@ Make sure to print out the distances you are interested in, as well as the work 
 
 The amplitude of the force can be tuned by changing the SLOPE, and this can be applied to any CV you like. Steered and constant force MD are by essence out-of-equilibrium set-ups, therefore, if the force is high enough, you don't expect the unbinding event to be reversible. This means that to calculate converged quantities (e.g. unbinding times), you need to repeat such simulations multiple times. 
 
-For example, the following figures shows the results (CV vs time) of 5 trajectories at two different forces acting on $d_S$. How does the unbinding time depends on force? Is this expected?
+For example, the following figures shows the results (CV vs time) of 5 trajectories at two different forces acting on $d_S$. How does the unbinding time depend on force? Is this expected?
 
 ![different_forces](images/GHRP_distance_time.png).
 
@@ -182,9 +182,9 @@ As an exercise, set SLOPE to match these different conditions. You can either tr
 
 #### Pulling at an angle
 
-Finally, it could be interesting and relevant for the comparision with experimental results to change the directionnality of the force. 
+Finally, it could be interesting and relevant for the comparison with experimental results to change the directionality of the force. 
 
-For example, providing you with the following plumed file, and based on what we did above, can you guess what is done exactly to the system? Is is expected to have a significant influnce on the unbinding kinetics?
+For example, providing you with the following plumed file, and based on what we did above, can you guess what is done exactly to the system? Is it expected to have a significant influnce on the unbinding kinetics?
 
 For example, 
 ```plumed
